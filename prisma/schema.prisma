@@ -1,0 +1,160 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id               Int               @id @default(autoincrement())
+  email            String            @unique
+  name             String?
+  password         String
+  createdAt        DateTime          @default(now()) @map("created_at")
+  updatedAt        DateTime          @updatedAt @map("updated_at")
+  userProgress     UserProgress[]
+  userAchievements UserAchievement[]
+  interactions     Interaction[]
+
+  @@map("users")
+}
+
+model Theme {
+  id              Int            @id @default(autoincrement())
+  name            String         @unique
+  description     String?
+  imageUrl        String?        @map("image_url") // URL to theme preview image
+  sceneUrl        String?        @map("scene_url") // URL to the GLB scene file
+  skyboxUrl       String?        @map("skybox_url") // Optional skybox/environment map
+  difficulty      Int            @default(1)
+  isLocked        Boolean        @default(false) @map("is_locked")
+  requiredThemeId Int?           @map("required_theme_id")
+  requiredTheme   Theme?         @relation("ThemePrerequisite", fields: [requiredThemeId], references: [id])
+  dependentThemes Theme[]        @relation("ThemePrerequisite")
+  objects         Object[]
+  createdAt       DateTime       @default(now()) @map("created_at")
+  updatedAt       DateTime       @updatedAt @map("updated_at")
+  userProgress    UserProgress[]
+
+  @@map("themes")
+}
+
+model Object {
+  id               Int           @id @default(autoincrement())
+  name             String
+  objectIdentifier String        @map("object_identifier") // Unique identifier matching the object name in GLB file
+  modelUrl         String?       @map("model_url") // Separate model URL if not part of the main scene GLB
+  thumbnailUrl     String?       @map("thumbnail_url") // Thumbnail image for object selection UI
+  position         Json? // Stores x, y, z coordinates
+  rotation         Json? // Stores rotation data
+  scale            Json? // Stores scale data
+  interactable     Boolean       @default(true)
+  interactionType  String?       @map("interaction_type") // Type of interaction: "click", "grab", "hover", etc.
+  highlightColor   String?       @map("highlight_color") // Color to use when highlighting this object
+  themeId          Int           @map("theme_id")
+  theme            Theme         @relation(fields: [themeId], references: [id])
+  vocabularyItems  Vocabulary[]
+  objectParts      ObjectPart[]
+  interactions     Interaction[]
+  createdAt        DateTime      @default(now()) @map("created_at")
+  updatedAt        DateTime      @updatedAt @map("updated_at")
+
+  @@unique([objectIdentifier, themeId])
+  @@map("objects")
+}
+
+model ObjectPart {
+  id               Int         @id @default(autoincrement())
+  name             String // Name of the part
+  objectIdentifier String      @map("object_identifier") // The part identifier in the GLB file
+  position         Json? // Position offset if different from parent
+  objectId         Int         @map("object_id")
+  object           Object      @relation(fields: [objectId], references: [id])
+  vocabularyId     Int?        @map("vocabulary_id")
+  vocabulary       Vocabulary? @relation(fields: [vocabularyId], references: [id])
+
+  @@unique([objectIdentifier, objectId])
+  @@map("object_parts")
+}
+
+model Vocabulary {
+  id                    Int              @id @default(autoincrement())
+  englishWord           String           @map("english_word")
+  vietnameseTranslation String           @map("vietnamese_translation")
+  pronunciation         String
+  audioUrl              String?          @map("audio_url")
+  examples              String[]
+  objectId              Int              @map("object_id")
+  object                Object           @relation(fields: [objectId], references: [id])
+  objectParts           ObjectPart[]
+  targetPosition        Json?            @map("target_position") // Where to display the vocabulary UI in 3D space
+  createdAt             DateTime         @default(now()) @map("created_at")
+  updatedAt             DateTime         @updatedAt @map("updated_at")
+  userLearned           UserVocabulary[]
+
+  @@map("vocabulary")
+}
+
+model Interaction {
+  id        Int      @id @default(autoincrement())
+  userId    Int      @map("user_id")
+  user      User     @relation(fields: [userId], references: [id])
+  objectId  Int      @map("object_id")
+  object    Object   @relation(fields: [objectId], references: [id])
+  type      String // "click", "grab", "view", etc.
+  duration  Int? // Time in milliseconds
+  timestamp DateTime @default(now())
+  metadata  Json? // Additional interaction data
+
+  @@map("interactions")
+}
+
+model UserProgress {
+  id          Int       @id @default(autoincrement())
+  userId      Int       @map("user_id")
+  user        User      @relation(fields: [userId], references: [id])
+  themeId     Int       @map("theme_id")
+  theme       Theme     @relation(fields: [themeId], references: [id])
+  isCompleted Boolean   @default(false) @map("is_completed")
+  progress    Float     @default(0) // Percentage of completion (0-100)
+  startedAt   DateTime  @default(now()) @map("started_at")
+  completedAt DateTime? @map("completed_at")
+
+  @@unique([userId, themeId])
+  @@map("user_progress")
+}
+
+model UserVocabulary {
+  id           Int       @id @default(autoincrement())
+  userId       Int       @map("user_id")
+  vocabularyId Int       @map("vocabulary_id")
+  learned      Boolean   @default(false)
+  proficiency  Int       @default(0) // 0-5 proficiency level
+  lastReviewed DateTime? @map("last_reviewed")
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  vocabulary Vocabulary @relation(fields: [vocabularyId], references: [id])
+
+  @@unique([userId, vocabularyId])
+  @@map("user_vocabulary")
+}
+
+model UserAchievement {
+  id          Int      @id @default(autoincrement())
+  userId      Int      @map("user_id")
+  user        User     @relation(fields: [userId], references: [id])
+  type        String // e.g., "THEME_COMPLETED", "VOCAB_MILESTONE"
+  description String
+  earnedAt    DateTime @default(now()) @map("earned_at")
+
+  @@unique([userId, type])
+  @@map("user_achievements")
+}
