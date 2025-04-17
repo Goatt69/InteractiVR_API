@@ -1,0 +1,97 @@
+project-root/
+├── src/
+│   ├── main.ts                          # Application entry point
+│   ├── app.module.ts                    # Root module
+│   ├── app.controller.ts                # Root controller
+│   ├── app.service.ts                   # Root service
+│   ├── config/                          # Configuration files
+│   │   ├── app.config.ts                # App configuration
+│   │   ├── database.config.ts           # Database configuration
+│   │   ├── jwt.config.ts                # JWT configuration
+│   │   ├── sentry.config.ts             # Sentry configuration
+│   │   └── index.ts                     # Config exports
+│   ├── common/                          # Common code shared across the application
+│   │   ├── constants/                   # Constants
+│   │   │   └── index.ts                 # Constants exports
+│   │   ├── decorators/                  # Custom decorators
+│   │   │   ├── roles.decorator.ts       # Roles decorator
+│   │   │   └── index.ts                 # Decorators exports
+│   │   ├── dto/                         # Data Transfer Objects
+│   │   │   ├── pagination.dto.ts        # Pagination DTO
+│   │   │   └── index.ts                 # DTOs exports
+│   │   ├── exceptions/                  # Custom exceptions
+│   │   │   ├── http-exception.filter.ts # HTTP exception filter
+│   │   │   └── index.ts                 # Exceptions exports
+│   │   ├── guards/                      # Guards
+│   │   │   ├── jwt-auth.guard.ts        # JWT guard
+│   │   │   ├── roles.guard.ts           # Roles guard
+│   │   │   └── index.ts                 # Guards exports
+│   │   ├── interceptors/                # Interceptors
+│   │   │   ├── logging.interceptor.ts   # Logging interceptor
+│   │   │   ├── transform.interceptor.ts # Transform interceptor
+│   │   │   └── index.ts                 # Interceptors exports
+│   │   ├── middlewares/                 # Middlewares
+│   │   │   ├── logger.middleware.ts     # Logger middleware
+│   │   │   └── index.ts                 # Middlewares exports
+│   │   ├── pipes/                       # Pipes
+│   │   │   ├── zod-validation.pipe.ts   # Zod validation pipe
+│   │   │   └── index.ts                 # Pipes exports
+│   │   ├── schemas/                     # Zod schemas
+│   │   │   └── index.ts                 # Schemas exports
+│   │   └── utils/                       # Utility functions
+│   │       └── index.ts                 # Utils exports
+│   ├── prisma/                          # Prisma modules
+│   │   ├── prisma.module.ts             # Prisma module
+│   │   ├── prisma.service.ts            # Prisma service
+│   │   └── index.ts                     # Prisma exports
+│   ├── sentry/                          # Sentry modules
+│   │   ├── sentry.module.ts             # Sentry module
+│   │   ├── sentry.service.ts            # Sentry service
+│   │   └── index.ts                     # Sentry exports
+│   ├── auth/                            # Authentication modules
+│   │   ├── auth.module.ts               # Auth module
+│   │   ├── auth.controller.ts           # Auth controller
+│   │   ├── auth.service.ts              # Auth service
+│   │   ├── dto/                         # Auth DTOs
+│   │   │   ├── login.dto.ts             # Login DTO with Zod schema
+│   │   │   ├── register.dto.ts          # Register DTO with Zod schema
+│   │   │   └── index.ts                 # Auth DTOs exports
+│   │   ├── guards/                      # Auth specific guards
+│   │   │   └── local-auth.guard.ts      # Local auth guard
+│   │   ├── schemas/                     # Auth Zod schemas
+│   │   │   ├── login.schema.ts          # Login schema
+│   │   │   ├── register.schema.ts       # Register schema
+│   │   │   └── index.ts                 # Auth schemas exports
+│   │   └── strategies/                  # Auth strategies
+│   │       ├── jwt.strategy.ts          # JWT strategy
+│   │       ├── local.strategy.ts        # Local strategy
+│   │       └── index.ts                 # Strategies exports
+│   └── modules/                         # Feature modules
+│       ├── users/                       # Users module
+│       │   ├── users.module.ts          # Users module
+│       │   ├── users.controller.ts      # Users controller
+│       │   ├── users.service.ts         # Users service
+│       │   ├── dto/                     # Users DTOs
+│       │   │   ├── create-user.dto.ts   # Create user DTO with Zod schema
+│       │   │   ├── update-user.dto.ts   # Update user DTO with Zod schema
+│       │   │   └── index.ts             # Users DTOs exports
+│       │   └── schemas/                 # Users Zod schemas
+│       │       ├── user.schema.ts       # User schema
+│       │       └── index.ts             # Users schemas exports
+│       └── [other-feature-modules]/     # Other feature modules following similar structure
+├── prisma/                              # Prisma ORM files
+│   ├── schema.prisma                    # Prisma schema
+│   ├── migrations/                      # Prisma migrations
+│   └── seed.ts                          # Database seeder
+├── test/                                # Tests
+│   ├── app.e2e-spec.ts                  # E2E tests
+│   └── jest-e2e.json                    # Jest E2E config
+├── .env                                 # Environment variables
+├── .env.example                         # Example environment variables
+├── .eslintrc.js                         # ESLint config
+├── .prettierrc                          # Prettier config
+├── nest-cli.json                        # NestJS CLI config
+├── package.json                         # NPM dependencies
+├── tsconfig.json                        # TypeScript config
+├── tsconfig.build.json                  # TypeScript build config
+└── README.md                            # Project documentation
