@@ -14,15 +14,17 @@ datasource db {
 }
 
 model User {
-  id               Int               @id @default(autoincrement())
+  id               String            @id @default(uuid())
   email            String            @unique
   name             String?
   password         String
   createdAt        DateTime          @default(now()) @map("created_at")
   updatedAt        DateTime          @updatedAt @map("updated_at")
+  role             UserRole          @default(user)
   userProgress     UserProgress[]
   userAchievements UserAchievement[]
   interactions     Interaction[]
+  UserVocabulary   UserVocabulary[]
 
   @@map("users")
 }
@@ -105,7 +107,7 @@ model Vocabulary {
 
 model Interaction {
   id        Int      @id @default(autoincrement())
-  userId    Int      @map("user_id")
+  userId    String   @map("user_id")
   user      User     @relation(fields: [userId], references: [id])
   objectId  Int      @map("object_id")
   object    Object   @relation(fields: [objectId], references: [id])
@@ -119,7 +121,7 @@ model Interaction {
 
 model UserProgress {
   id          Int       @id @default(autoincrement())
-  userId      Int       @map("user_id")
+  userId      String    @map("user_id")
   user        User      @relation(fields: [userId], references: [id])
   themeId     Int       @map("theme_id")
   theme       Theme     @relation(fields: [themeId], references: [id])
@@ -133,8 +135,9 @@ model UserProgress {
 }
 
 model UserVocabulary {
-  id           Int       @id @default(autoincrement())
-  userId       Int       @map("user_id")
+  id           String    @id @default(uuid())
+  userId       String    @map("user_id")
+  user         User      @relation(fields: [userId], references: [id])
   vocabularyId Int       @map("vocabulary_id")
   learned      Boolean   @default(false)
   proficiency  Int       @default(0) // 0-5 proficiency level
@@ -149,7 +152,7 @@ model UserVocabulary {
 
 model UserAchievement {
   id          Int      @id @default(autoincrement())
-  userId      Int      @map("user_id")
+  userId      String   @map("user_id")
   user        User     @relation(fields: [userId], references: [id])
   type        String // e.g., "THEME_COMPLETED", "VOCAB_MILESTONE"
   description String
@@ -157,4 +160,9 @@ model UserAchievement {
 
   @@unique([userId, type])
   @@map("user_achievements")
+}
+
+enum UserRole {
+  user
+  admin
 }
