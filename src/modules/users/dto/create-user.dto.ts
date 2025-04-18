@@ -1,5 +1,5 @@
-import { UserCreate, userCreateSchema } from '../../../common/schemas';
-import { ZodValidationPipe } from '../../../common/pipes';
+import { UserCreate, userCreateSchema } from 'src/common/schemas';
+import { ZodValidationPipe } from 'src/common/pipes';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CreateUserDto implements UserCreate {

@@ -8,13 +8,15 @@ import {
   Request,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { UserLogin, userLoginSchema } from '../../common/schemas';
+import { userLoginSchema } from '../../common/schemas';
 import { ZodValidationPipe } from '../../common/pipes';
 import { ApiTags } from '@nestjs/swagger';
 import { Roles } from '../../common/guards/roles.decorator';
 import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
 import { RolesGuard } from '../../common/guards/roles.guard';
 import { RequestWithUser, UserRole } from '../../common/constants';
+import { LoginUserDto } from '../users/dto';
+
 const LoginValidationPipe = new ZodValidationPipe(userLoginSchema);
 
 @Controller('auth')
@@ -24,7 +26,7 @@ export class AuthController {
 
   @Post('login')
   @UsePipes(LoginValidationPipe)
-  async login(@Body() loginDto: UserLogin) {
+  async login(@Body() loginDto: LoginUserDto) {
     return this.authService.login(loginDto);
   }
 
