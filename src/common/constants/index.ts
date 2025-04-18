@@ -8,7 +8,7 @@ export enum UserRole {
 export interface JwtPayload {
   email: string;
   sub: string;
-  role: 'user' | 'admin';
+  role: UserRole;
 }
 
 export type UserWithoutPassword = Omit<User, 'password'>;

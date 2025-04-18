@@ -3,13 +3,10 @@ import './instrument';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import { ZodValidationPipe } from './common/pipes';
-import { z } from 'zod';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.useGlobalPipes(new ZodValidationPipe(z.object({})));
   app.setGlobalPrefix('api/v1');
 
   const config = new DocumentBuilder()

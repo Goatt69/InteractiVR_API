@@ -15,5 +15,4 @@ export class LoginUserDto implements UserLogin {
   })
   password: string;
 }
-
 export const LoginUserValidationPipe = new ZodValidationPipe(userLoginSchema);
