@@ -7,6 +7,8 @@ import {
   Param,
   Delete,
   UsePipes,
+  UseGuards,
+  ParseUUIDPipe,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import {
@@ -16,6 +18,8 @@ import {
   UpdateUserValidationPipe,
 } from './dto';
 import { ApiTags } from '@nestjs/swagger';
+import { Roles, JwtAuthGuard, RolesGuard } from '../../common/guards';
+import { UserRole } from '../../common/constants';
 
 @Controller('users')
 @ApiTags('users')
@@ -29,23 +33,30 @@ export class UsersController {
   }
 
   @Get()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
   findAll() {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(id);
+  @Get(':uuid')
+  @Roles(UserRole.ADMIN)
+  findOne(@Param('uuid', ParseUUIDPipe) uuid: string) {
+    return this.usersService.findOne(uuid);
   }
 
-  @Patch(':id')
+  @Patch(':uuid')
   @UsePipes(UpdateUserValidationPipe)
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(id, updateUserDto);
+  update(
+    @Param('uuid', ParseUUIDPipe) uuid: string,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    return this.usersService.update(uuid, updateUserDto);
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(id);
+  @Delete(':uuid')
+  @Roles(UserRole.ADMIN)
+  remove(@Param('uuid', ParseUUIDPipe) uuid: string) {
+    return this.usersService.remove(uuid);
   }
 }
