@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { ObjectsModule } from './modules/objects/objects.module';
 import { SentryModule } from '@sentry/nestjs/setup';
 import { APP_FILTER } from '@nestjs/core';
 import { SentryGlobalFilter } from '@sentry/nestjs/setup';
@@ -14,6 +15,7 @@ import { PrismaModule } from './common/prisma/prisma.module';
     PrismaModule,
     UsersModule,
     AuthModule,
+    ObjectsModule,
     ConfigModule.forRoot(),
     SentryModule.forRoot(),
   ],
