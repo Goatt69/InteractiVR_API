@@ -1,0 +1,468 @@
+{
+  "theme": {
+    "name": "Solar System",
+    "description": "Explore the solar system in VR",
+    "imageUrl": null,
+    "sceneUrl": "/models/Space.glb",
+    "skyboxUrl": "/environments/Sky.hdr",
+    "difficulty": 1,
+    "isLocked": false
+  },
+  "objects": [
+    {
+      "name": "Jupiter",
+      "objectIdentifier": "Jupiter",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": 137.38917541503906,
+        "y": 395.2322692871094,
+        "z": -1681.9378662109375
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 11.691377639770508,
+        "y": 11.691377639770508,
+        "z": 11.691377639770508
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Jupiter",
+          "vietnameseTranslation": "Jupiter in Vietnamese",
+          "pronunciation": "Jupiter pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Jupiter"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mars",
+      "objectIdentifier": "Mars",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": 630.2939453125,
+        "y": 181.91336059570312,
+        "z": 398.0990295410156
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 55.514347076416016,
+        "y": 55.514347076416016,
+        "z": 55.514347076416016
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Mars",
+          "vietnameseTranslation": "Mars in Vietnamese",
+          "pronunciation": "Mars pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Mars"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mercury",
+      "objectIdentifier": "Mercury",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": -1270.99169921875,
+        "y": 57.45026779174805,
+        "z": -533.7667846679688
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 36.910072326660156,
+        "y": 36.910072326660156,
+        "z": 36.910072326660156
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Mercury",
+          "vietnameseTranslation": "Mercury in Vietnamese",
+          "pronunciation": "Mercury pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Mercury"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Moon",
+      "objectIdentifier": "Moon",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": 134.1045684814453,
+        "y": 363.4557800292969,
+        "z": -249.99267578125
+      },
+      "rotation": {
+        "x": 0.08970992056396977,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 29.94645881652832,
+        "y": 29.94646453857422,
+        "z": 29.94646453857422
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Moon",
+          "vietnameseTranslation": "Moon in Vietnamese",
+          "pronunciation": "Moon pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Moon"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Neptune",
+      "objectIdentifier": "Neptune",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": 475.6904296875,
+        "y": 244.26971435546875,
+        "z": 1118.8671875
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 12.219354629516602,
+        "y": 12.219354629516602,
+        "z": 12.219354629516602
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Neptune",
+          "vietnameseTranslation": "Neptune in Vietnamese",
+          "pronunciation": "Neptune pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Neptune"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Saturn",
+      "objectIdentifier": "Saturn",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": -387.1737976074219,
+        "y": 346.44964599609375,
+        "z": 1651.5833740234375
+      },
+      "rotation": {
+        "x": -3.141592653589793,
+        "y": 0.914883703306571,
+        "z": -3.141592653589793
+      },
+      "scale": {
+        "x": 10.635519027709961,
+        "y": 10.635519981384277,
+        "z": 10.635519027709961
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Saturn",
+          "vietnameseTranslation": "Saturn in Vietnamese",
+          "pronunciation": "Saturn pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Saturn"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sun",
+      "objectIdentifier": "Sun",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": -2551.687744140625,
+        "y": 924.3812866210938,
+        "z": 168.65525817871094
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 91.60579681396484,
+        "y": 91.60579681396484,
+        "z": 91.60579681396484
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Sun",
+          "vietnameseTranslation": "Sun in Vietnamese",
+          "pronunciation": "Sun pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Sun"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Uranus",
+      "objectIdentifier": "Uranus",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": -904.0479736328125,
+        "y": 241.70620727539062,
+        "z": -1297.3201904296875
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 14.084390640258789,
+        "y": 14.084390640258789,
+        "z": 14.084390640258789
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Uranus",
+          "vietnameseTranslation": "Uranus in Vietnamese",
+          "pronunciation": "Uranus pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Uranus"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Venus",
+      "objectIdentifier": "Venus",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": -851.9544677734375,
+        "y": 158.53616333007812,
+        "z": 714.721923828125
+      },
+      "rotation": {
+        "x": 0,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 23.261962890625,
+        "y": 23.261962890625,
+        "z": 23.261962890625
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Venus",
+          "vietnameseTranslation": "Venus in Vietnamese",
+          "pronunciation": "Venus pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Venus"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Earth",
+      "objectIdentifier": "Earth",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": 399.10943603515625,
+        "y": 247.96588134765625,
+        "z": -351.2386474609375
+      },
+      "rotation": {
+        "x": 2.1031217143714924,
+        "y": 0,
+        "z": 0
+      },
+      "scale": {
+        "x": 103.71016693115234,
+        "y": 103.71015930175781,
+        "z": 103.71015930175781
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Earth",
+          "vietnameseTranslation": "Earth in Vietnamese",
+          "pronunciation": "Earth pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Earth"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SpaceShip",
+      "objectIdentifier": "SpaceShip",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": 216.06051635742188,
+        "y": 290.6224670410156,
+        "z": -209.0330810546875
+      },
+      "rotation": {
+        "x": 0.36452668048423625,
+        "y": -0.2710541486332569,
+        "z": -1.958951760444762
+      },
+      "scale": {
+        "x": 0.2458958774805069,
+        "y": 0.18557848036289215,
+        "z": 0.25074493885040283
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "SpaceShip",
+          "vietnameseTranslation": "SpaceShip in Vietnamese",
+          "pronunciation": "SpaceShip pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a SpaceShip"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "SaturnRings",
+      "objectIdentifier": "SaturnRings",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": -387.1737976074219,
+        "y": 346.44964599609375,
+        "z": 1651.5833740234375
+      },
+      "rotation": {
+        "x": 2.6733040597630584,
+        "y": 0.7153379898162645,
+        "z": -2.9141035992354185
+      },
+      "scale": {
+        "x": 37.21520233154297,
+        "y": 3.721519947052002,
+        "z": 37.2151985168457
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "SaturnRings",
+          "vietnameseTranslation": "SaturnRings in Vietnamese",
+          "pronunciation": "SaturnRings pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a SaturnRings"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Astronaut",
+      "objectIdentifier": "Astronaut",
+      "modelUrl": null,
+      "thumbnailUrl": null,
+      "position": {
+        "x": 229.84738159179688,
+        "y": 256.8412780761719,
+        "z": -201.7429962158203
+      },
+      "rotation": {
+        "x": 2.651941362242991,
+        "y": -1.2852273199475222,
+        "z": 2.26254023885141
+      },
+      "scale": {
+        "x": 0.19836294651031494,
+        "y": 0.19836294651031494,
+        "z": 0.19836294651031494
+      },
+      "interactable": true,
+      "interactionType": "click",
+      "highlightColor": null,
+      "vocabularyItems": [
+        {
+          "englishWord": "Astronaut",
+          "vietnameseTranslation": "Astronaut in Vietnamese",
+          "pronunciation": "Astronaut pronunciation",
+          "audioUrl": null,
+          "examples": [
+            "This is a Astronaut"
+          ]
+        }
+      ]
+    }
+  ]
+}
