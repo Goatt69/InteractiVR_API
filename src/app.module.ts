@@ -1,5 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { APP_FILTER } from '@nestjs/core';
 import { ConfigModule } from '@nestjs/config';
 import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup';
 
@@ -12,8 +12,7 @@ import { ObjectsModule } from './modules/objects/objects.module';
 import { PrismaModule } from './common/prisma/prisma.module';
 import { ThemeModule } from './modules/theme/theme.module';
 
-import { LoggerMiddleware } from './common/middlewares/logger.middleware';
-import { AuthMiddleware } from './common/middlewares/auth.middleware';
+import { LoggerMiddleware } from './common/middlewares';
 
 @Module({
   imports: [
@@ -31,15 +30,11 @@ import { AuthMiddleware } from './common/middlewares/auth.middleware';
     {
       provide: APP_FILTER,
       useClass: SentryGlobalFilter,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: AuthMiddleware,
-    },
+    }
   ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware, AuthMiddleware).forRoutes('*');
+    consumer.apply(LoggerMiddleware).forRoutes('*');
   }
 }

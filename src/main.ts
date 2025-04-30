@@ -14,7 +14,7 @@ async function bootstrap() {
   const config = new DocumentBuilder()
     .setTitle('Interactive API')
     .setDescription('The Interactive API description')
-    .setVersion('0.2')
+    .setVersion('0.5')
     .addBearerAuth()
     .build();
 
@@ -23,4 +23,4 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT ?? 8000);
 }
-bootstrap();
+bootstrap().catch((err) => console.log(err));
