@@ -12,7 +12,7 @@ import {
 import { ThemeService } from './theme.service';
 import { CreateThemeDto } from './dto/create-theme.dto';
 import { UpdateThemeDto } from './dto/update-theme.dto';
-import { ApiTags, ApiOperation, ApiOkResponse } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiOkResponse, ApiBearerAuth } from '@nestjs/swagger';
 import { UserRole } from '../../common/constants';
 
 @Controller('theme')
@@ -23,6 +23,7 @@ export class ThemeController {
   @Post()
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Create a new theme' })
   @ApiOkResponse({ description: 'Theme created successfully' })
   create(@Body() createThemeDto: CreateThemeDto) {
@@ -31,6 +32,7 @@ export class ThemeController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all themes' })
   @ApiOkResponse({ description: 'Themes retrieved successfully' })
   findAll() {
@@ -39,6 +41,7 @@ export class ThemeController {
 
   @Get(':id')
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Get a theme by ID' })
   @ApiOkResponse({ description: 'Theme retrieved successfully' })
   findOne(@Param('id') id: string) {
@@ -48,6 +51,7 @@ export class ThemeController {
   @Patch(':id')
   @UseGuards(JwtAuthGuard,RolesGuard)
   @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Update a theme by ID' })
   @ApiOkResponse({ description: 'Theme updated successfully' })
   update(@Param('id') id: string, @Body() updateThemeDto: UpdateThemeDto) {
@@ -57,6 +61,7 @@ export class ThemeController {
   @Delete(':id')
   @UseGuards(JwtAuthGuard,RolesGuard)
   @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete a theme by ID' })
   @ApiOkResponse({ description: 'Theme deleted successfully' })
   remove(@Param('id') id: string) {
