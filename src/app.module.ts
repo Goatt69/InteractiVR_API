@@ -10,6 +10,7 @@ import { UsersModule } from './modules/users/users.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ObjectsModule } from './modules/objects/objects.module';
 import { PrismaModule } from './common/prisma/prisma.module';
+import { ThemeModule } from './modules/theme/theme.module';
 
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { AuthMiddleware } from './common/middlewares/auth.middleware';
@@ -22,6 +23,7 @@ import { AuthMiddleware } from './common/middlewares/auth.middleware';
     ObjectsModule,
     ConfigModule.forRoot(),
     SentryModule.forRoot(),
+    ThemeModule,
   ],
   controllers: [AppController],
   providers: [
