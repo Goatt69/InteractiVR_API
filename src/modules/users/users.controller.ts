@@ -41,28 +41,29 @@ export class UsersController {
 
   @Get()
   @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all users' })
   @ApiOkResponse({ description: 'Users found successfully' })
-  @ApiBearerAuth()
-  @Roles(UserRole.ADMIN)
   findAll() {
     return this.usersService.findAll();
   }
 
   @Get(':uuid')
-  @Roles(UserRole.ADMIN)
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Get a user by UUID' })
   @ApiOkResponse({ description: 'User found successfully' })
-  @ApiBearerAuth()
   findOne(@Param('uuid', ParseUUIDPipe) uuid: string) {
     return this.usersService.findOne(uuid);
   }
 
   @Patch(':uuid')
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @ApiBearerAuth()
   @UsePipes(UpdateUserValidationPipe)
   @ApiOperation({ summary: 'Update a user by UUID' })
   @ApiOkResponse({ description: 'User updated successfully' })
-  @ApiBearerAuth()
   update(
     @Param('uuid', ParseUUIDPipe) uuid: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -71,10 +72,11 @@ export class UsersController {
   }
 
   @Delete(':uuid')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
   @ApiOperation({ summary: 'Delete a user by UUID' })
   @ApiOkResponse({ description: 'User deleted successfully' })
-  @ApiBearerAuth()
   remove(@Param('uuid', ParseUUIDPipe) uuid: string) {
     return this.usersService.remove(uuid);
   }

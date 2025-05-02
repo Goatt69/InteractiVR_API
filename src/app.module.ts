@@ -13,6 +13,7 @@ import { PrismaModule } from './common/prisma/prisma.module';
 import { ThemeModule } from './modules/theme/theme.module';
 
 import { LoggerMiddleware } from './common/middlewares';
+import { HttpExceptionFilter } from './common/exceptions';
 
 @Module({
   imports: [
@@ -20,9 +21,9 @@ import { LoggerMiddleware } from './common/middlewares';
     UsersModule,
     AuthModule,
     ObjectsModule,
+    ThemeModule,
     ConfigModule.forRoot(),
     SentryModule.forRoot(),
-    ThemeModule,
   ],
   controllers: [AppController],
   providers: [
@@ -30,7 +31,11 @@ import { LoggerMiddleware } from './common/middlewares';
     {
       provide: APP_FILTER,
       useClass: SentryGlobalFilter,
-    }
+    },
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
   ],
 })
 export class AppModule implements NestModule {
