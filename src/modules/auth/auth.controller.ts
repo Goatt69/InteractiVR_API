@@ -10,10 +10,8 @@ import {
 import { AuthService } from './auth.service';
 import { userLoginSchema } from '../../common/schemas';
 import { ZodValidationPipe } from '../../common/pipes';
-import { ApiTags } from '@nestjs/swagger';
-import { Roles } from '../../common/guards/roles.decorator';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { RolesGuard } from '../../common/guards/roles.guard';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
+import { Roles, JwtAuthGuard, RolesGuard } from '../../common/guards';
 import { RequestWithUser, UserRole } from '../../common/constants';
 import { LoginUserDto } from '../users/dto';
 
@@ -31,6 +29,7 @@ export class AuthController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @ApiBearerAuth()
   @Get('profile')
   getProfile(@Request() req: RequestWithUser) {
     return req.user;
@@ -39,6 +38,7 @@ export class AuthController {
   // For role-based access:
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
+  @ApiBearerAuth()
   @Get('admin-only')
   adminEndpoint() {
     return { message: 'Admin access granted' };
