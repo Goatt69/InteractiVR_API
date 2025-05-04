@@ -7,14 +7,12 @@ import {
   Param,
   Delete,
   ParseIntPipe,
-  UseGuards,
-  Request,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { VocabularyService } from './vocabulary.service';
 import { ApiTags, ApiOperation, ApiParam, ApiBody } from '@nestjs/swagger';
-import { Prisma } from '@prisma/client';
-import { JwtAuthGuard } from '../../common/guards/jwt-auth.guard';
-import { RequestWithUser } from '../../common/constants';
+import { CreateVocabularyDto, UpdateVocabularyDto } from './dto/vocabulary.dto';
 
 @Controller('vocabulary')
 @ApiTags('vocabulary')
@@ -28,13 +26,43 @@ export class VocabularyController {
     return this.vocabularyService.findByObjectId(objectId);
   }
 
-  @Get('theme/:themeId/object/:identifier')
-  @ApiOperation({ summary: 'Get vocabulary by object identifier and theme ID' })
-  findByObjectIdentifier(
-    @Param('identifier') identifier: string,
-    @Param('themeId', ParseIntPipe) themeId: number,
+  @Post('object/:objectId')
+  @ApiOperation({ summary: 'Create a new vocabulary item for an object' })
+  @ApiParam({ name: 'objectId', type: 'number' })
+  @ApiBody({ type: CreateVocabularyDto, description: 'Vocabulary data' })
+  @UsePipes(new ValidationPipe({ transform: true }))
+  create(
+    @Param('objectId', ParseIntPipe) objectId: number,
+    @Body() createVocabularyDto: CreateVocabularyDto,
   ) {
-    return this.vocabularyService.findByObjectIdentifier(identifier, themeId);
+    // Ensure the objectId in the DTO matches the URL parameter
+    createVocabularyDto.objectId = objectId;
+    return this.vocabularyService.create(createVocabularyDto);
+  }
+
+  @Patch('object/:objectId/vocabulary/:id')
+  @ApiOperation({ summary: 'Update a vocabulary item for an object' })
+  @ApiParam({ name: 'objectId', type: 'number' })
+  @ApiParam({ name: 'id', type: 'number' })
+  @ApiBody({ type: UpdateVocabularyDto, description: 'Updated vocabulary data' })
+  @UsePipes(new ValidationPipe({ transform: true }))
+  update(
+    @Param('objectId', ParseIntPipe) objectId: number,
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateVocabularyDto: UpdateVocabularyDto,
+  ) {
+    return this.vocabularyService.update(id, objectId, updateVocabularyDto);
+  }
+
+  @Delete('object/:objectId/vocabulary/:id')
+  @ApiOperation({ summary: 'Delete a vocabulary item for an object' })
+  @ApiParam({ name: 'objectId', type: 'number' })
+  @ApiParam({ name: 'id', type: 'number' })
+  remove(
+    @Param('objectId', ParseIntPipe) objectId: number,
+    @Param('id', ParseIntPipe) id: number,
+  ) {
+    return this.vocabularyService.remove(id, objectId);
   }
 
   @Get('theme/:themeId')
@@ -42,61 +70,5 @@ export class VocabularyController {
   @ApiParam({ name: 'themeId', type: 'number' })
   findByTheme(@Param('themeId', ParseIntPipe) themeId: number) {
     return this.vocabularyService.findByTheme(themeId);
-  }
-
-  @Get()
-  @ApiOperation({ summary: 'Get all vocabulary items' })
-  findAll() {
-    return this.vocabularyService.findAll();
-  }
-
-  @Get(':id')
-  @ApiOperation({ summary: 'Get vocabulary by ID' })
-  @ApiParam({ name: 'id', type: 'number' })
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.vocabularyService.findOne(id);
-  }
-
-  @Post()
-  @ApiOperation({ summary: 'Create a new vocabulary item' })
-  @ApiBody({ description: 'Vocabulary data' })
-  create(@Body() createVocabularyDto: Prisma.VocabularyCreateInput) {
-    return this.vocabularyService.create(createVocabularyDto);
-  }
-
-  @Patch(':id')
-  @ApiOperation({ summary: 'Update a vocabulary item' })
-  @ApiParam({ name: 'id', type: 'number' })
-  @ApiBody({ description: 'Updated vocabulary data' })
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() updateVocabularyDto: Prisma.VocabularyUpdateInput,
-  ) {
-    return this.vocabularyService.update(id, updateVocabularyDto);
-  }
-
-  @Delete(':id')
-  @ApiOperation({ summary: 'Delete a vocabulary item' })
-  @ApiParam({ name: 'id', type: 'number' })
-  remove(@Param('id', ParseIntPipe) id: number) {
-    return this.vocabularyService.remove(id);
-  }
-
-  @Post(':id/learn')
-  @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Mark vocabulary as learned' })
-  @ApiParam({ name: 'id', type: 'number' })
-  markAsLearned(
-    @Param('id', ParseIntPipe) id: number,
-    @Request() req: RequestWithUser,
-  ) {
-    return this.vocabularyService.markAsLearned(req.user.id, id);
-  }
-
-  @Get('user/learned')
-  @UseGuards(JwtAuthGuard)
-  @ApiOperation({ summary: 'Get user vocabulary progress' })
-  getUserVocabulary(@Request() req: RequestWithUser) {
-    return this.vocabularyService.getUserVocabulary(req.user.id);
   }
 }

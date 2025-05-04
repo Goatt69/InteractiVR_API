@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { VocabularyController } from './vocabulary.controller';
-import { VocabularyService } from './vocabulary.service'; // thêm dòng này!
+import { VocabularyService } from './vocabulary.service';
 
 describe('VocabularyController', () => {
   let controller: VocabularyController;
