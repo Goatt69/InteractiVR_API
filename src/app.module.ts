@@ -8,6 +8,7 @@ import { APP_FILTER } from '@nestjs/core';
 import { SentryGlobalFilter } from '@sentry/nestjs/setup';
 import { ConfigModule } from '@nestjs/config';
 import { PrismaModule } from './common/prisma/prisma.module';
+import { VocabularyModule } from './modules/vocabulary/vocabulary.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PrismaModule } from './common/prisma/prisma.module';
     AuthModule,
     ConfigModule.forRoot(),
     SentryModule.forRoot(),
+    VocabularyModule,
   ],
   controllers: [AppController],
   providers: [
