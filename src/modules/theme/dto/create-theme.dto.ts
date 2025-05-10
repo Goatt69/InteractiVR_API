@@ -1,6 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { ThemeCreate, themeCreateSchema } from 'src/common/schemas';
+import { ZodValidationPipe } from 'src/common/pipes';
 
-export class CreateThemeDto {
+export class CreateThemeDto implements ThemeCreate {
   @ApiProperty({
     description: 'The name of the theme',
     example: 'Theme 1',
@@ -49,3 +51,5 @@ export class CreateThemeDto {
   })
   requiredThemeId?: number;
 }
+
+export const CreateThemeValidationPipe = new ZodValidationPipe(themeCreateSchema);

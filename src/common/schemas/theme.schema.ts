@@ -5,7 +5,7 @@ export const ErrThemeDifficulty = new Error(
   'Theme difficulty must be between 1 and 5',
 );
 
-export const ThemeSchema = z.object({
+export const themeCreateSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   imageUrl: z.string().optional(),
@@ -16,4 +16,7 @@ export const ThemeSchema = z.object({
   requiredThemeId: z.number().optional(),
 });
 
-export type ThemeCreate = z.infer<typeof ThemeSchema>;
+export const themeUpdateSchema = themeCreateSchema.partial();
+
+export type ThemeCreate = z.infer<typeof themeCreateSchema>;
+export type ThemeUpdate = z.infer<typeof themeUpdateSchema>;

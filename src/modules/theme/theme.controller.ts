@@ -31,8 +31,6 @@ export class ThemeController {
   }
 
   @Get()
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Get all themes' })
   @ApiOkResponse({ description: 'Themes retrieved successfully' })
   findAll() {
@@ -40,8 +38,6 @@ export class ThemeController {
   }
 
   @Get(':id')
-  @UseGuards(JwtAuthGuard)
-  @ApiBearerAuth()
   @ApiOperation({ summary: 'Get a theme by ID' })
   @ApiOkResponse({ description: 'Theme retrieved successfully' })
   findOne(@Param('id') id: string) {
