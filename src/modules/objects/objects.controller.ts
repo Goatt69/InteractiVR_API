@@ -1,4 +1,4 @@
-import { Controller, Get, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { ObjectsService } from './objects.service';
 import { UpdateObjectDto } from './dto/update-object.dto';
 import {
@@ -7,8 +7,8 @@ import {
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { UserRole } from 'src/common/constants';
-import { Roles } from 'src/common/guards';
+import { UserRole } from '../../common/constants';
+import { Roles,JwtAuthGuard, RolesGuard } from '../../common/guards';
 @Controller('objects')
 @ApiTags('objects')
 export class ObjectsController {
@@ -29,6 +29,7 @@ export class ObjectsController {
   }
 
   @Patch(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Update an object by ID' })
   @ApiOkResponse({ description: 'Object updated successfully' })
@@ -37,6 +38,7 @@ export class ObjectsController {
   }
 
   @Delete(':id')
+  @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
   @ApiOperation({ summary: 'Delete an object by ID' })
   @ApiOkResponse({ description: 'Object deleted successfully' })
