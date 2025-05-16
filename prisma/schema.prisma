@@ -93,11 +93,10 @@ model Vocabulary {
   vietnameseTranslation String           @map("vietnamese_translation")
   pronunciation         String
   audioUrl              String?          @map("audio_url")
-  examples              String[]
+  examples              String?          @map("examples")
   objectId              Int              @map("object_id")
   object                Object           @relation(fields: [objectId], references: [id])
   objectParts           ObjectPart[]
-  targetPosition        Json?            @map("target_position") // Where to display the vocabulary UI in 3D space
   createdAt             DateTime         @default(now()) @map("created_at")
   updatedAt             DateTime         @updatedAt @map("updated_at")
   userLearned           UserVocabulary[]
