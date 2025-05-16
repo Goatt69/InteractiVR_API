@@ -11,6 +11,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ObjectsModule } from './modules/objects/objects.module';
 import { PrismaModule } from './common/prisma/prisma.module';
 import { ThemeModule } from './modules/theme/theme.module';
+import { VocabularyModule } from './modules/vocabulary/vocabulary.module';
 
 import { LoggerMiddleware } from './common/middlewares';
 import { HttpExceptionFilter } from './common/exceptions';
@@ -22,6 +23,7 @@ import { HttpExceptionFilter } from './common/exceptions';
     AuthModule,
     ObjectsModule,
     ThemeModule,
+    VocabularyModule,
     ConfigModule.forRoot(),
     SentryModule.forRoot(),
   ],
