@@ -44,7 +44,6 @@ export class VocabularyService {
       where: { objectId },
       include: {
         object: true,
-        objectParts: true,
       },
     });
 

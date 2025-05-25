@@ -12,8 +12,10 @@ export class LoggerMiddleware implements NestMiddleware {
     res.on('finish', () => {
       const user = req.user as JwtPayload
 
-    console.log(`Incoming request: ${method} ${originalUrl}`);
-    console.log(`User: ${user?.email || 'Anonymous'}`);
+    console.log(`\x1b[33mIncoming request: \x1b[32m${method} ${originalUrl}\x1b[0m`);
+    console.log(`\x1b[33mUser: \x1b[34m${user?.email || 'Anonymous'}\x1b[0m`);
+    console.log(`\x1b[33mTime: \x1b[36m${new Date().toISOString()}\x1b[0m`);
+    console.log()
     });
   }
 }

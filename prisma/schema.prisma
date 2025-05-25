@@ -23,7 +23,6 @@ model User {
   role             UserRole          @default(user)
   userProgress     UserProgress[]
   userAchievements UserAchievement[]
-  interactions     Interaction[]
   UserVocabulary   UserVocabulary[]
 
   @@map("users")
@@ -36,7 +35,6 @@ model Theme {
   imageUrl        String?        @map("image_url") // URL to theme preview image
   sceneUrl        String?        @map("scene_url") // URL to the GLB scene file
   skyboxUrl       String?        @map("skybox_url") // Optional skybox/environment map
-  difficulty      Int            @default(1)
   isLocked        Boolean        @default(false) @map("is_locked")
   requiredThemeId Int?           @map("required_theme_id")
   requiredTheme   Theme?         @relation("ThemePrerequisite", fields: [requiredThemeId], references: [id])
@@ -50,41 +48,22 @@ model Theme {
 }
 
 model Object {
-  id               Int           @id @default(autoincrement())
+  id               Int          @id @default(autoincrement())
   name             String
-  objectIdentifier String        @map("object_identifier") // Unique identifier matching the object name in GLB file
-  modelUrl         String?       @map("model_url") // Separate model URL if not part of the main scene GLB
-  thumbnailUrl     String?       @map("thumbnail_url") // Thumbnail image for object selection UI
+  objectIdentifier String       @map("object_identifier") // Unique identifier matching the object name in GLB file
+  thumbnailUrl     String?      @map("thumbnail_url") // Thumbnail image for object selection UI
   position         Json? // Stores x, y, z coordinates
   rotation         Json? // Stores rotation data
   scale            Json? // Stores scale data
-  interactable     Boolean       @default(true)
-  interactionType  String?       @map("interaction_type") // Type of interaction: "click", "grab", "hover", etc.
-  highlightColor   String?       @map("highlight_color") // Color to use when highlighting this object
-  themeId          Int           @map("theme_id")
-  theme            Theme         @relation(fields: [themeId], references: [id])
+  interactable     Boolean      @default(true)
+  themeId          Int          @map("theme_id")
+  theme            Theme        @relation(fields: [themeId], references: [id])
   vocabularyItems  Vocabulary[]
-  objectParts      ObjectPart[]
-  interactions     Interaction[]
-  createdAt        DateTime      @default(now()) @map("created_at")
-  updatedAt        DateTime      @updatedAt @map("updated_at")
+  createdAt        DateTime     @default(now()) @map("created_at")
+  updatedAt        DateTime     @updatedAt @map("updated_at")
 
   @@unique([objectIdentifier, themeId])
   @@map("objects")
-}
-
-model ObjectPart {
-  id               Int         @id @default(autoincrement())
-  name             String // Name of the part
-  objectIdentifier String      @map("object_identifier") // The part identifier in the GLB file
-  position         Json? // Position offset if different from parent
-  objectId         Int         @map("object_id")
-  object           Object      @relation(fields: [objectId], references: [id])
-  vocabularyId     Int?        @map("vocabulary_id")
-  vocabulary       Vocabulary? @relation(fields: [vocabularyId], references: [id])
-
-  @@unique([objectIdentifier, objectId])
-  @@map("object_parts")
 }
 
 model Vocabulary {
@@ -96,26 +75,11 @@ model Vocabulary {
   examples              String?          @map("examples")
   objectId              Int              @map("object_id")
   object                Object           @relation(fields: [objectId], references: [id])
-  objectParts           ObjectPart[]
   createdAt             DateTime         @default(now()) @map("created_at")
   updatedAt             DateTime         @updatedAt @map("updated_at")
   userLearned           UserVocabulary[]
 
   @@map("vocabulary")
-}
-
-model Interaction {
-  id        Int      @id @default(autoincrement())
-  userId    String   @map("user_id")
-  user      User     @relation(fields: [userId], references: [id])
-  objectId  Int      @map("object_id")
-  object    Object   @relation(fields: [objectId], references: [id])
-  type      String // "click", "grab", "view", etc.
-  duration  Int? // Time in milliseconds
-  timestamp DateTime @default(now())
-  metadata  Json? // Additional interaction data
-
-  @@map("interactions")
 }
 
 model UserProgress {
@@ -139,7 +103,6 @@ model UserVocabulary {
   user         User      @relation(fields: [userId], references: [id])
   vocabularyId Int       @map("vocabulary_id")
   learned      Boolean   @default(false)
-  proficiency  Int       @default(0) // 0-5 proficiency level
   lastReviewed DateTime? @map("last_reviewed")
   createdAt    DateTime  @default(now()) @map("created_at")
 
