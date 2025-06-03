@@ -53,6 +53,10 @@ FROM base as final
 # Use production node environment by default.
 ENV NODE_ENV production
 
+# Define default port, can be overridden during build or at runtime
+ARG PORT=8000
+ENV PORT=${PORT}
+
 # Run the application as a non-root user.
 USER node
 
@@ -66,7 +70,7 @@ COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules/.prisma/client  ./node_modules/.prisma/client
 
 # Expose the port that the application listens on.
-EXPOSE 8000
+EXPOSE ${PORT}
 
 # Run the application.
 CMD ["node", "dist/src/main"]
